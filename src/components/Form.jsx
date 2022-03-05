@@ -19,6 +19,7 @@ const Form = props => {
           id={props.cardNumberId}
           onChange={handleCardNumber}
           aria-label='Entrez votre numéro de carte'
+          maxLength='16'
         />
       </label>
       <label htmlFor={props.cardNameId} className='cardInput'>

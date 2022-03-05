@@ -6,6 +6,7 @@ const Card = props => {
   const [cardExpiryMonth, setCardExpiryMonth] = useState("");
   const [cardExpiryYear, setCardExpiryYear] = useState("");
   const [cardCVC, setCardCVC] = useState("");
+  const [cardImage, setCardImage] = useState("src/img/visa.png");
 
   useEffect(() => {
     let tempCardNumber = ["####", "####", "####", "####"];
@@ -22,6 +23,23 @@ const Card = props => {
   }, []);
 
   useEffect(() => {
+    // if 2 first digits of card number are between 51 and 55, then it's a mastercard
+    if (props.cardNumberInput.substring(0, 2) >= 51 && props.cardNumberInput.substring(0, 2) <= 55) {
+      setCardImage("src/img/mastercard.png");
+    } else if (
+      props.cardNumberInput.substring(0, 2) >= 34 &&
+      props.cardNumberInput.substring(0, 2) <= 37
+    ) {
+      setCardImage("src/img/amex.png");
+    } else if (
+      props.cardNumberInput.substring(0, 4) == 6011
+    ) {
+      setCardImage("src/img/discover.png");
+    } else if (props.cardNumberInput.substring(0, 4) == 9792) {
+      setCardImage("src/img/troy.png");
+    } else {
+      setCardImage("src/img/visa.png");
+    }
     // If props.cardNumberInput is not empty, update cardNumber join with space each 4 digits
     if (props.cardNumberInput.length > 0) {
       let tempCardNumber = props.cardNumberInput.match(/.{1,4}/g);
@@ -63,7 +81,7 @@ const Card = props => {
               />
               <div className='card-type'>
                 <img
-                  src='./src/img/visa.png'
+                  src={cardImage}
                   alt='Carte Visa'
                   className='card-typeImg'
                 />
