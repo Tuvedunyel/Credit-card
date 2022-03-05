@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Card = (props) => {
+const Card = props => {
   const [cardNumber, setCardNumber] = useState("");
   const [cardName, setCardName] = useState("");
   const [cardExpiryMonth, setCardExpiryMonth] = useState("");
@@ -20,11 +20,25 @@ const Card = (props) => {
     setCardExpiryYear(tempCardExpiryYear);
     setCardCVC(tempCardCVC);
   }, []);
+
+  useEffect(() => {
+    // If props.cardNumberInput is not empty, update cardNumber join with space each 4 digits
+    if (props.cardNumberInput.length > 0) {
+      let tempCardNumber = props.cardNumberInput.match(/.{1,4}/g);
+      setCardNumber(tempCardNumber.join(" "));
+    } else {
+      setCardNumber("#### #### #### ####");
+    }
+  }, [props.cardNumberInput]);
+
   return (
     <div className='card-wrapper'>
       <div className='card-container'>
         <section className='card-front card-side'>
-          <div className='card-focus'></div>
+          <div
+            id='focus'
+            className={props.focusIsActive ? "card-focus active" : "card-focus"}
+          ></div>
           <div className='card-bgImg'>
             <img
               src='./src/img/cerdit-card-bg.jpg'
@@ -47,23 +61,43 @@ const Card = (props) => {
                 />
               </div>
             </div>
-            <label htmlFor='' className='cardNumber'>
+            <label
+              htmlFor={props.cardId}
+              className='cardNumber'
+              // onClick={() => props.handleFocus("cardNumber")}
+            >
               {cardNumber}
             </label>
             <div className='card-content'>
-              <label htmlFor='' className='cardName'>
+              <label
+                htmlFor=''
+                className='cardName'
+                // onClick={() => props.handleFocus("cardName")}
+              >
                 <p className='card-holder'>Détenteur</p>
                 <p className='card-holder-name'>{cardName}</p>
               </label>
               <div className='card-date'>
-                <label htmlFor='' className='card-dateTitle'>
+                <label
+                  htmlFor=''
+                  className='card-dateTitle'
+                  // onClick={() => props.handleFocus("cardExpiry")}
+                >
                   Expires
                 </label>
-                <label htmlFor='' className='card-dateItem'>
+                <label
+                  htmlFor=''
+                  className='card-dateItem'
+                  // onClick={() => props.handleFocus("cardExpiry")}
+                >
                   {cardExpiryMonth}
                 </label>
                 /
-                <label htmlFor='' className='card-dateItem'>
+                <label
+                  htmlFor=''
+                  className='card-dateItem'
+                  // onClick={() => props.handleFocus("cardExpiry")}
+                >
                   {cardExpiryYear}
                 </label>
               </div>
