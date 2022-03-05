@@ -31,6 +31,14 @@ const Card = props => {
     }
   }, [props.cardNumberInput]);
 
+  useEffect( () => {
+    if (props.cardNameInput.length > 0) {
+      setCardName(props.cardNameInput);
+    } else {
+      setCardName("Full name");
+    }
+  }, [props.cardNameInput])
+
   return (
     <div className='card-wrapper'>
       <div className='card-container'>
@@ -62,41 +70,36 @@ const Card = props => {
               </div>
             </div>
             <label
-              htmlFor={props.cardId}
+              htmlFor={props.cardNumberId}
               className='cardNumber'
-              // onClick={() => props.handleFocus("cardNumber")}
             >
               {cardNumber}
             </label>
             <div className='card-content'>
               <label
-                htmlFor=''
+                htmlFor={props.cardNameId}
                 className='cardName'
-                // onClick={() => props.handleFocus("cardName")}
               >
                 <p className='card-holder'>Détenteur</p>
                 <p className='card-holder-name'>{cardName}</p>
               </label>
               <div className='card-date'>
                 <label
-                  htmlFor=''
+                  htmlFor={props.cardExpiryId}
                   className='card-dateTitle'
-                  // onClick={() => props.handleFocus("cardExpiry")}
                 >
                   Expires
                 </label>
                 <label
-                  htmlFor=''
+                  htmlFor={props.cardExpiryMonthId}
                   className='card-dateItem'
-                  // onClick={() => props.handleFocus("cardExpiry")}
                 >
                   {cardExpiryMonth}
                 </label>
                 /
                 <label
-                  htmlFor=''
+                  htmlFor={props.cardExpiryYearId}
                   className='card-dateItem'
-                  // onClick={() => props.handleFocus("cardExpiry")}
                 >
                   {cardExpiryYear}
                 </label>

@@ -3,6 +3,6 @@ import Card from "../components/Card"
 
 describe('Test du composant Card', () => {
     it('Card is rendered', () => {
-        render(<Card />)
+        render(<Card cardNumberId="fakeNumber" cardNumberInput="254885" focusIsActive="false" cardNameId="fakeName" cardExpiryId="fakeExpiry" cardExpiryMonthId="fakeMonth" cardExpiryYearId="fakeYear" cardNameInput="fakeNameInput" />)
     })
 })
