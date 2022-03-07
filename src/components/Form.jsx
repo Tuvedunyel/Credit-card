@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 
-
 const Form = props => {
   const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const currentYear = (new Date().getFullYear());
-  const [years, setYears] = useState( [new Date().getFullYear(), new Date().getFullYear() + 1, new Date().getFullYear() + 2, new Date().getFullYear() + 3]);
+  const currentYear = new Date().getFullYear();
+  const [years, setYears] = useState([
+    new Date().getFullYear(),
+    new Date().getFullYear() + 1,
+    new Date().getFullYear() + 2,
+    new Date().getFullYear() + 3,
+  ]);
 
-  useEffect( () => {
+  useEffect(() => {
     setYears(Array.from({ length: 20 }, (_, i) => currentYear + i));
   }, []);
-
 
   const handleCardNumber = e => {
     let cardNumber = e.target.value;
@@ -32,7 +35,7 @@ const Form = props => {
 
   const handleCardCVC = e => {
     props.setCardCVCInput(e.target.value);
-  }
+  };
 
   return (
     <form action='' className='cardFormInner'>
@@ -89,13 +92,20 @@ const Form = props => {
             </select>
           </label>
         </div>
-        <div className="cardCcv">
-                <label htmlFor={props.cardCVCId} className="cardInput">
-                  <span className="cardInput__label">CVV</span>
-                  <input id={props.cardCVCId} type="text" maxLength="4" className="cardInput__input" onChange={handleCardCVC} />  
-                </label>
+        <div className='cardCcv'>
+          <label htmlFor={props.cardCVCId} className='cardInput'>
+            <span className='cardInput__label'>CVV</span>
+            <input
+              id={props.cardCVCId}
+              type='text'
+              maxLength='3'
+              className='cardInput__input'
+              onChange={handleCardCVC}
+            />
+          </label>
         </div>
       </div>
+      <button className='cardForm__button'> Envoyer </button>
     </form>
   );
 };
