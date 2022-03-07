@@ -31,6 +31,19 @@ const Form = props => {
           aria-label='Entrez le nom du titulaire de la carte'
         />
       </label>
+      <div className="cardFormRow">
+          <div className="expiryContainer">
+            <label htmlFor={props.cardExpiryMonthId} className='cardInput'>
+              <span className='cardInput__label'>Date d'expiration</span>
+              <select id={props.cardExpiryMonthId} defaultValue="default">
+                <option disabled="disabled" value="default">Mois</option>  
+              </select>
+              <select id={props.cardExpiryYearId} defaultValue="default">
+                <option disabled="disabled" value="default">Année</option>
+              </select>
+            </label>
+          </div>
+      </div>
     </form>
   );
 };

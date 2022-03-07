@@ -231,9 +231,11 @@ body {
     height: -webkit-fit-content;
     padding-bottom: 4px;
     width: 100%;
+    cursor: pointer;
   }
 
   &Item {
     position: relative;
+    cursor: pointer;
   }
 }

@@ -103,7 +103,7 @@ const Card = props => {
               </label>
               <div className='card-date'>
                 <label
-                  htmlFor={props.cardExpiryId}
+                  htmlFor={props.cardExpiryMonthId}
                   className='card-dateTitle'
                 >
                   Expires

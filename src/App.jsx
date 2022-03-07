@@ -7,7 +7,6 @@ const App = () => {
   const [cardNameInput, setCardNameInput] = useState("");
   const cardNumberId = "cardNumber";
   const cardNameId = "cardName";
-  const cardExpiryId = "cardExpiry";
   const cardExpiryMonthId = "cardExpiryMonth";
   const cardExpiryYearId = "cardExpiryYear";
   const [focusIsActive, setFocusIsActive] = useState(false);
@@ -22,6 +21,8 @@ const App = () => {
     const focus = document.getElementById("focus");
     const cardNumberFocus = document.getElementById(cardNumberId);
     const cardNameFocus = document.getElementById(cardNameId);
+    const cardExpiryMonthFocus = document.getElementById(cardExpiryMonthId);
+    const cardExpiryYearFocus = document.getElementById(cardExpiryYearId);
 
     if (cardNumberFocus === document.activeElement) {
       setFocusIsActive(true);
@@ -33,6 +34,11 @@ const App = () => {
       focus.style["width"] = "315px";
       focus.style["height"] = "47px";
       focus.style["transform"] = "translate(15px, 186px)";
+    } else if ( cardExpiryMonthFocus === document.activeElement || cardExpiryYearFocus === document.activeElement) {
+      setFocusIsActive(true);
+      focus.style["width"] = "80px";
+      focus.style["height"] = "57px";
+      focus.style["transform"] = "translateX(335px) translateY(186px)";
     } else {
       focus.style["width"] = "100%";
       focus.style["height"] = "100%";
@@ -49,7 +55,6 @@ const App = () => {
         setCardNumberInput={setCardNumberInput}
         focusIsActive={focusIsActive}
         cardNameId={cardNameId}
-        cardExpiryId={cardExpiryId}
         cardExpiryMonthId={cardExpiryMonthId}
         cardExpiryYearId={cardExpiryYearId}
       />
@@ -58,22 +63,9 @@ const App = () => {
         setCardNameInput={setCardNameInput}
         cardNumberId={cardNumberId}
         cardNameId={cardNameId}
-        cardExpiryId={cardExpiryId}
         cardExpiryMonthId={cardExpiryMonthId}
         cardExpiryYearId={cardExpiryYearId}
       />
-      {/* <form action=''>
-        <label htmlFor={cardNumberId} onClick={handleFocus}>
-          Numéro de carte
-          <input
-            type='text'
-            id={cardNumberId}
-            aria-label='Numéro de carte'
-            onChange={handleChange}
-            maxLength='16'
-          />
-        </label>
-      </form> */}
     </div>
   );
 };
