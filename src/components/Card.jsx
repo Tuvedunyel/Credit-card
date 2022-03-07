@@ -24,6 +24,15 @@ const Card = props => {
     }
   }, [props.cardExpiryMonthInput, props.cardExpiryYearInput]);
 
+  useEffect( () => {
+    if (props.cardCVCInput) {
+      // setCardCVC with * for security
+      setCardCVC("*".repeat(props.cardCVCInput.length));
+    } else {
+      setCardCVC("")
+    }
+  }, [props.cardCVCInput])
+
   useEffect(() => {
     // if 2 first digits of card number are between 51 and 55, then it's a mastercard
     if (
@@ -62,7 +71,7 @@ const Card = props => {
 
   return (
     <div className='card-wrapper'>
-      <div className='card-container'>
+      <div className={ props.focusCVCActive ? 'card-container active' : 'card-container'}>
         <section className='card-front card-side'>
           <div
             id='focus'
@@ -109,7 +118,9 @@ const Card = props => {
                   htmlFor={props.cardExpiryMonthId}
                   className='card-dateItem'
                 >
-                  {cardExpiryMonth < 10 ? `0${cardExpiryMonth}` : cardExpiryMonth}
+                  {cardExpiryMonth < 10
+                    ? `0${cardExpiryMonth}`
+                    : cardExpiryMonth}
                 </label>
                 /
                 <label
@@ -122,7 +133,23 @@ const Card = props => {
             </div>
           </div>
         </section>
-        <section className='card-back card-side'></section>
+        <section className='card-back card-side'>
+          <div className='card-bgImg'>
+            <img
+              src='./src/img/cerdit-card-bg.jpg'
+              alt='Carte de crédit'
+              aria-label='Carte de crédit'
+            />
+          </div>
+          <div className='cardBande'></div>
+          <div className='cardCvv'>
+            <div className='cardCvv__title'>CVV</div>
+            <div className='cardCvv__band'>{cardCVC}</div>
+            <div className='card-type'>
+              <img src={cardImage} className='card-typeImg' alt="Carte bleu" />
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

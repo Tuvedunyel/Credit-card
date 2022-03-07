@@ -30,6 +30,10 @@ const Form = props => {
     props.setCardExpiryYearInput(e.target.value);
   };
 
+  const handleCardCVC = e => {
+    props.setCardCVCInput(e.target.value);
+  }
+
   return (
     <form action='' className='cardFormInner'>
       <label htmlFor={props.cardNumberId} className='cardInput'>
@@ -84,6 +88,12 @@ const Form = props => {
               ))}
             </select>
           </label>
+        </div>
+        <div className="cardCcv">
+                <label htmlFor={props.cardCVCId} className="cardInput">
+                  <span className="cardInput__label">CVV</span>
+                  <input id={props.cardCVCId} type="text" maxLength="4" className="cardInput__input" onChange={handleCardCVC} />  
+                </label>
         </div>
       </div>
     </form>
