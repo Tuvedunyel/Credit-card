@@ -5,6 +5,8 @@ import Form from "./components/Form";
 const App = () => {
   const [cardNumberInput, setCardNumberInput] = useState("");
   const [cardNameInput, setCardNameInput] = useState("");
+  const [cardExpiryMonthInput, setCardExpiryMonthInput] = useState("");
+  const [cardExpiryYearInput, setCardExpiryYearInput] = useState("");
   const cardNumberId = "cardNumber";
   const cardNameId = "cardName";
   const cardExpiryMonthId = "cardExpiryMonth";
@@ -51,6 +53,8 @@ const App = () => {
       <Card
         cardNumberInput={cardNumberInput}
         cardNameInput={cardNameInput}
+        cardExpiryMonthInput={cardExpiryMonthInput}
+        cardExpiryYearInput={cardExpiryYearInput}
         cardNumberId={cardNumberId}
         setCardNumberInput={setCardNumberInput}
         focusIsActive={focusIsActive}
@@ -61,6 +65,8 @@ const App = () => {
       <Form
         setCardNumberInput={setCardNumberInput}
         setCardNameInput={setCardNameInput}
+        setCardExpiryMonthInput={setCardExpiryMonthInput}
+        setCardExpiryYearInput={setCardExpiryYearInput}
         cardNumberId={cardNumberId}
         cardNameId={cardNameId}
         cardExpiryMonthId={cardExpiryMonthId}

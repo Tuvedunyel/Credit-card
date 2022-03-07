@@ -9,31 +9,34 @@ const Card = props => {
   const [cardImage, setCardImage] = useState("src/img/visa.png");
 
   useEffect(() => {
-    let tempCardNumber = ["####", "####", "####", "####"];
-    let tempCardName = "Full name";
-    let tempCardExpiryMonth = "MM";
-    let tempCardExpiryYear = "YY";
-    let tempCardCVC = "###";
+    if (props.cardExpiryMonthInput) {
+      setCardExpiryMonth(props.cardExpiryMonthInput);
+    } else {
+      let tempCardExpiryMonth = "MM";
+      setCardExpiryMonth(tempCardExpiryMonth);
+    }
 
-    setCardNumber(tempCardNumber.join(" "));
-    setCardName(tempCardName);
-    setCardExpiryMonth(tempCardExpiryMonth);
-    setCardExpiryYear(tempCardExpiryYear);
-    setCardCVC(tempCardCVC);
-  }, []);
+    if (props.cardExpiryYearInput) {
+      setCardExpiryYear(props.cardExpiryYearInput.slice(2));
+    } else {
+      let tempCardExpiryYear = "YY";
+      setCardExpiryYear(tempCardExpiryYear);
+    }
+  }, [props.cardExpiryMonthInput, props.cardExpiryYearInput]);
 
   useEffect(() => {
     // if 2 first digits of card number are between 51 and 55, then it's a mastercard
-    if (props.cardNumberInput.substring(0, 2) >= 51 && props.cardNumberInput.substring(0, 2) <= 55) {
+    if (
+      props.cardNumberInput.substring(0, 2) >= 51 &&
+      props.cardNumberInput.substring(0, 2) <= 55
+    ) {
       setCardImage("src/img/mastercard.png");
     } else if (
       props.cardNumberInput.substring(0, 2) >= 34 &&
       props.cardNumberInput.substring(0, 2) <= 37
     ) {
       setCardImage("src/img/amex.png");
-    } else if (
-      props.cardNumberInput.substring(0, 4) == 6011
-    ) {
+    } else if (props.cardNumberInput.substring(0, 4) == 6011) {
       setCardImage("src/img/discover.png");
     } else if (props.cardNumberInput.substring(0, 4) == 9792) {
       setCardImage("src/img/troy.png");
@@ -49,13 +52,13 @@ const Card = props => {
     }
   }, [props.cardNumberInput]);
 
-  useEffect( () => {
+  useEffect(() => {
     if (props.cardNameInput.length > 0) {
       setCardName(props.cardNameInput);
     } else {
-      setCardName("Full name");
+      setCardName("NOM COMPLET");
     }
-  }, [props.cardNameInput])
+  }, [props.cardNameInput]);
 
   return (
     <div className='card-wrapper'>
@@ -87,17 +90,11 @@ const Card = props => {
                 />
               </div>
             </div>
-            <label
-              htmlFor={props.cardNumberId}
-              className='cardNumber'
-            >
+            <label htmlFor={props.cardNumberId} className='cardNumber'>
               {cardNumber}
             </label>
             <div className='card-content'>
-              <label
-                htmlFor={props.cardNameId}
-                className='cardName'
-              >
+              <label htmlFor={props.cardNameId} className='cardName'>
                 <p className='card-holder'>Détenteur</p>
                 <p className='card-holder-name'>{cardName}</p>
               </label>
@@ -112,7 +109,7 @@ const Card = props => {
                   htmlFor={props.cardExpiryMonthId}
                   className='card-dateItem'
                 >
-                  {cardExpiryMonth}
+                  {cardExpiryMonth < 10 ? `0${cardExpiryMonth}` : cardExpiryMonth}
                 </label>
                 /
                 <label

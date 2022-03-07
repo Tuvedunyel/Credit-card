@@ -1,4 +1,16 @@
+import { useEffect, useState } from "react";
+
+
 const Form = props => {
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const currentYear = (new Date().getFullYear());
+  const [years, setYears] = useState( [new Date().getFullYear(), new Date().getFullYear() + 1, new Date().getFullYear() + 2, new Date().getFullYear() + 3]);
+
+  useEffect( () => {
+    setYears(Array.from({ length: 20 }, (_, i) => currentYear + i));
+  }, []);
+
+
   const handleCardNumber = e => {
     let cardNumber = e.target.value;
     if (cardNumber.length <= 16) {
@@ -8,6 +20,14 @@ const Form = props => {
 
   const handleCardName = e => {
     props.setCardNameInput(e.target.value);
+  };
+
+  const handleExpiryMonth = e => {
+    props.setCardExpiryMonthInput(e.target.value);
+  };
+
+  const handleExpiryYear = e => {
+    props.setCardExpiryYearInput(e.target.value);
   };
 
   return (
@@ -31,18 +51,40 @@ const Form = props => {
           aria-label='Entrez le nom du titulaire de la carte'
         />
       </label>
-      <div className="cardFormRow">
-          <div className="expiryContainer">
-            <label htmlFor={props.cardExpiryMonthId} className='cardInput'>
-              <span className='cardInput__label'>Date d'expiration</span>
-              <select id={props.cardExpiryMonthId} defaultValue="default">
-                <option disabled="disabled" value="default">Mois</option>  
-              </select>
-              <select id={props.cardExpiryYearId} defaultValue="default">
-                <option disabled="disabled" value="default">Année</option>
-              </select>
-            </label>
-          </div>
+      <div className='cardFormRow'>
+        <div className='expiryContainer'>
+          <label htmlFor={props.cardExpiryMonthId} className='cardInput'>
+            <span className='cardInput__label'>Date d'expiration</span>
+            <select
+              id={props.cardExpiryMonthId}
+              defaultValue='default'
+              onChange={handleExpiryMonth}
+            >
+              <option disabled='disabled' value='default'>
+                Mois
+              </option>
+              {months.map(month => (
+                <option value={month} key={month}>
+                  {month < 10 ? "0" + month : month}
+                </option>
+              ))}
+            </select>
+            <select
+              id={props.cardExpiryYearId}
+              defaultValue='default'
+              onChange={handleExpiryYear}
+            >
+              <option disabled='disabled' value='default'>
+                Année
+              </option>
+              {years.map(year => (
+                <option value={year} key={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
       </div>
     </form>
   );
