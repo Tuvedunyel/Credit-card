@@ -24,14 +24,14 @@ const Card = props => {
     }
   }, [props.cardExpiryMonthInput, props.cardExpiryYearInput]);
 
-  useEffect( () => {
+  useEffect(() => {
     if (props.cardCVCInput) {
       // setCardCVC with * for security
       setCardCVC("*".repeat(props.cardCVCInput.length));
     } else {
-      setCardCVC("")
+      setCardCVC("");
     }
-  }, [props.cardCVCInput])
+  }, [props.cardCVCInput]);
 
   useEffect(() => {
     // if 2 first digits of card number are between 51 and 55, then it's a mastercard
@@ -55,6 +55,25 @@ const Card = props => {
     // If props.cardNumberInput is not empty, update cardNumber join with space each 4 digits
     if (props.cardNumberInput.length > 0) {
       let tempCardNumber = props.cardNumberInput.match(/.{1,4}/g);
+      if (tempCardNumber.length === 2) {
+        tempCardNumber[tempCardNumber.length - 1] = "*".repeat(
+          tempCardNumber[tempCardNumber.length - 1].length
+        );
+      } else if (tempCardNumber.length === 3) {
+        tempCardNumber[tempCardNumber.length - 2] = "*".repeat(
+          tempCardNumber[tempCardNumber.length - 2].length
+        );
+        tempCardNumber[tempCardNumber.length - 1] = "*".repeat(
+          tempCardNumber[tempCardNumber.length - 1].length
+        );
+      } else if (tempCardNumber.length === 4) {
+        tempCardNumber[tempCardNumber.length - 3] = "*".repeat(
+          tempCardNumber[tempCardNumber.length - 3].length
+        );
+        tempCardNumber[tempCardNumber.length - 2] = "*".repeat(
+          tempCardNumber[tempCardNumber.length - 2].length
+        );
+      }
       setCardNumber(tempCardNumber.join(" "));
     } else {
       setCardNumber("#### #### #### ####");
@@ -71,7 +90,11 @@ const Card = props => {
 
   return (
     <div className='card-wrapper'>
-      <div className={ props.focusCVCActive ? 'card-container active' : 'card-container'}>
+      <div
+        className={
+          props.focusCVCActive ? "card-container active" : "card-container"
+        }
+      >
         <section className='card-front card-side'>
           <div
             id='focus'
@@ -146,7 +169,11 @@ const Card = props => {
             <div className='cardCvv__title'>CVV</div>
             <div className='cardCvv__band'>{cardCVC}</div>
             <div className='card-type'>
-              <img src={cardImage} className='card-typeImg' alt="Carte bleu" />
+              <img
+                src={cardImage}
+                className='card-typeImg'
+                alt='Type de carte bleu'
+              />
             </div>
           </div>
         </section>
